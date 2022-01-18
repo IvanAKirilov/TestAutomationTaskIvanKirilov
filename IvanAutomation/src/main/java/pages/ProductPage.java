@@ -19,22 +19,22 @@ public class ProductPage {
         this.driver = driver;
     }
 
-    public void changeQuantity() {
+    public void changeQuantity(){
         driver.findElement(quantityField).click();
         driver.findElement(quantityField).sendKeys(Keys.BACK_SPACE);
         driver.findElement(quantityField).sendKeys("2");
     }
 
-    public void changeSize() {
+    public void changeSize(){
         driver.findElement(sizeDropDown).click();
         driver.findElement(selectSizeM).click();
     }
 
-    public void changeColor() {
+    public void changeColor(){
         driver.findElement(blueColor).click();
     }
 
-    public void clickAddToCartButton() {
+    public void clickAddToCartButton(){
         driver.findElement(addToCartButton).click();
     }
 
@@ -42,7 +42,7 @@ public class ProductPage {
        return driver.findElement(totalPrice).getText();
     }
 
-    public void clickProceedButton() {
+    public void clickProceedButton(){
         driver.findElement(proceedButton).click();
     }
 

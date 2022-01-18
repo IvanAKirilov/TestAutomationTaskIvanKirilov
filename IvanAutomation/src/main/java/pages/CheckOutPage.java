@@ -14,37 +14,35 @@ public class CheckOutPage {
     public By confirmMessage = By.xpath("//div[@id='center_column']/div[1]/p/strong[contains(text(), 'Your order on My Store is complete')]");
     public By orderAmount = By.xpath("//div[@id='center_column']/div/span/strong[contains(text(), '$35.02')]");
 
-    public CheckOutPage(WebDriver driver) {
+    public CheckOutPage(WebDriver driver){
         this.driver = driver;
     }
 
-    public void clickProceedInCart() {
+    public void clickProceedInCart(){
         driver.findElement(proceedButtonInCart).click();
     }
 
-    public void clickProceedOnAddressPage() {
+    public void clickProceedOnAddressPage(){
         driver.findElement(proceedButtonOnAddressAndShippingPages).click();
     }
 
-    public void clickTermsCheckBox() {
+    public void clickTermsCheckBox(){
         driver.findElement(termsCheckBox).click();
     }
 
-    public void clickPaymentMethod() {
+    public void clickPaymentMethod(){
         driver.findElement(paymentMethod).click();
     }
 
-    public void clickConfirmOrder() {
+    public void clickConfirmOrder(){
         driver.findElement(confirmOrder).click();
     }
 
-    public String getConfirmationMessage() {
+    public String getConfirmationMessage(){
         return driver.findElement(confirmMessage).getText();
     }
 
-    public String getOrderAmount() {
+    public String getOrderAmount(){
         return driver.findElement(orderAmount).getText();
     }
-
-
 }
