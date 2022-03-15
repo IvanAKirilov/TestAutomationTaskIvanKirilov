@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="45080c77-57c4-4f08-9930-414050b6dd4f" name="Changes" comment="" />
+    <list default="true" id="45080c77-57c4-4f08-9930-414050b6dd4f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IvanAutomation/SeleniumWebDriver.iml" beforeDir="false" afterPath="$PROJECT_DIR$/IvanAutomation/SeleniumWebDriver.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IvanAutomation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/IvanAutomation/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IvanAutomation/resources/chromedriver" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IvanAutomation/src/test/java/BaseTest/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/IvanAutomation/src/test/java/BaseTest/BaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IvanAutomation/src/test/java/checkProductPriceTests/CheckFadedTeeShirtPriceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/IvanAutomation/src/test/java/checkProductPriceTests/CheckFadedTeeShirtPriceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +39,7 @@
     </option>
   </component>
   <component name="ProjectId" id="23biUvLls6MgmqOCKX3L9iUQM8g" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -57,15 +66,19 @@
     </key>
   </component>
   <component name="RunManager" selected="TestNG.BuyProduct.buyTwoProductsTest">
-    <configuration name="BaseTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="BaseTest.BaseTest" />
-      <module name="IvanAutomation" />
+    <configuration name="BuyProduct" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="SeleniumWebDriver" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value=".*" />
+          <option name="PATTERN" value="buyProduct.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="buyProduct" />
+      <option name="MAIN_CLASS_NAME" value="buyProduct.BuyProduct" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -88,7 +101,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="checkFadedTeeShirtPriceTest" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="CheckFadedTeeShirtPriceTest" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="SeleniumWebDriver" />
       <extension name="coverage">
         <pattern>
@@ -97,7 +110,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="checkProductPriceTests" />
-      <option name="MAIN_CLASS_NAME" value="checkProductPriceTests.checkFadedTeeShirtPriceTest" />
+      <option name="MAIN_CLASS_NAME" value="checkProductPriceTests.CheckFadedTeeShirtPriceTest" />
       <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
@@ -144,10 +157,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="TestNG.BuyProduct.buyTwoProductsTest" />
+        <item itemvalue="TestNG.CheckFadedTeeShirtPriceTest" />
+        <item itemvalue="TestNG.BuyProduct" />
         <item itemvalue="TestNG.checkFadedTeeShirtPriceTest.buyTwoProductsTest" />
         <item itemvalue="TestNG.checkFadedTeeShirtPriceTest.checkProductPriceTest" />
-        <item itemvalue="TestNG.checkFadedTeeShirtPriceTest" />
-        <item itemvalue="Application.BaseTest" />
       </list>
     </recent_temporary>
   </component>
@@ -172,5 +185,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
