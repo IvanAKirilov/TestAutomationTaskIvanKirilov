@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="AndroidStagingSmoke" parallel="tests" thread-count="1">
+    <test name="AndroidSmoke" >
+       <groups>
+           <run>
+               <include name="StagingSmoke"/>
+           </run>
+       </groups>
+        <classes>
+            <class name="AndroidTests.FirstAndroidTest"/>
+        </classes>
+    </test>
+</suite>
