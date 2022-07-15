@@ -26,8 +26,8 @@ public class BrowserStackiOSTest {
     Local localInstance;
     WebDriverWait wait;
     TouchAction action;
-    public static String USERNAME = "ivankirilov_ZcetyV";
-    public static String AUTOMATE_KEY = "WoagpFHzaCqs3AbazTrv";
+    public static String USERNAME = "ivan_jI6MHB";
+    public static String AUTOMATE_KEY = "hm3yAxiAASNPs7rAbpgR";
 
     public void handleNotificationsPermissionPopUp() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Don’t Allow")));
@@ -67,7 +67,7 @@ public class BrowserStackiOSTest {
     public void setUp() throws Exception {
 
         // Starts the Local Testing Connection
-        Runtime.getRuntime().exec("./BrowserStackLocal --key WoagpFHzaCqs3AbazTrv --force-local")
+        Runtime.getRuntime().exec("./BrowserStackLocal --key hm3yAxiAASNPs7rAbpgR --force-local")
                 .waitFor(2000, TimeUnit.MILLISECONDS);
 
         DesiredCapabilities caps = new DesiredCapabilities();

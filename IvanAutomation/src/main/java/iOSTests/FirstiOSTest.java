@@ -12,9 +12,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
@@ -62,7 +61,7 @@ public class FirstiOSTest {
         return !driver.findElement(By.id(element)).isEnabled();
     }
 
-    @BeforeTest
+    @BeforeMethod
     public void setUp() throws MalformedURLException {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformName", "iOS");
@@ -291,7 +290,7 @@ public class FirstiOSTest {
         Assert.assertEquals(driver.findElement(By.id("errorTextView")).getText(), "Invalid credentials");
     }
 
-    @AfterTest
+    @AfterMethod
     public void tearDown(){
         if (driver != null){
             driver.quit();

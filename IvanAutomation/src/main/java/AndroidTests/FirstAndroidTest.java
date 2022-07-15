@@ -31,6 +31,11 @@ public class FirstAndroidTest {
     public String nativeContext = "NATIVE_APP";
     public String webContext = "WEBVIEW_com.india.guruplay";
 
+    private void killAndRelaunchApp(String packageName) {
+        driver.terminateApp(packageName);
+        driver.activateApp(packageName);
+    }
+
     private void scrollDown() {
         Dimension dimension = driver.manage().window().getSize();
         int scrollStart = (int) (dimension.getHeight() * 0.8);
@@ -154,7 +159,7 @@ public class FirstAndroidTest {
     }
 
     private void Logout() {
-        driver.findElement(By.id("headerAccount")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("accountMenuNonGridItems")));
         WebElement accountGridSection = driver.findElement(By.id("accountMenuNonGridItems"));
         List<WebElement> accountGridElements = accountGridSection.findElements(By.className("android.widget.FrameLayout"));
@@ -170,23 +175,21 @@ public class FirstAndroidTest {
         caps.setCapability("automationName", "UiAutomator2");
         caps.setCapability("platformVersion", "10");
         caps.setCapability("deviceName", "Xiaomi Redmi Note 8 Pro");
-        caps.setCapability("app", "/Users/ivankirilov/IdeaProjects/TestAutomationTaskIvanKirilov/IvanAutomation/apps/dev_guruplay_1446.apk");
+        caps.setCapability("app", "/Users/ivankirilov/IdeaProjects/TestAutomationTaskIvanKirilov/IvanAutomation/apps/dev_guruplay_1474.apk");
         driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), caps);
     }
 
 
     /**APP-877*/
-    @Test(groups = {""})
+    @Test(groups = {"StagingSmoke"})
     public void LoginWithRememberMeFunctionality() {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         LoginWithRememberMe();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount"))).isDisplayed());
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         LoginWithRememberMe();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount"))).isDisplayed());
         Logout();
@@ -199,8 +202,7 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         scrollDown();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("casinoFirstSectionView"))).isDisplayed());
@@ -260,8 +262,7 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
 //        driver.toggleWifi();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         driver.findElement(By.id("headerLogin"))
@@ -307,8 +308,7 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAmount"))).isDisplayed());
         String amount = driver.findElement(By.id("headerAmount")).getText();
@@ -335,8 +335,7 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount"))).isDisplayed());
         String amount = driver.findElement(By.id("headerAmount")).getText();
@@ -360,13 +359,12 @@ public class FirstAndroidTest {
         Assert.assertNotEquals(amount, updatedAmount);
     }
 
-    @Test(groups = {""})
+    @Test(groups = {"StagingSmoke"})
     public void ChatFunctionality() {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAmount"))).isDisplayed());
         driver.findElement(By.id("headerAccount")).click();
@@ -397,10 +395,12 @@ public class FirstAndroidTest {
     }
 
     // THINK OF MORE SMART WAY FOR THIS TEST, 2 users, with different amount
-    @Test(groups = {""})
+    @Test(groups = {"StagingSmoke"})
     public void LowFundsBanner() {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
+        killAndRelaunchApp("com.india.guruplay");
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lowBalanceView"))).isDisplayed());
         Assert.assertTrue(driver.findElement(By.id("viewLowBalanceImage")).isDisplayed());
@@ -432,8 +432,7 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         wait.until(ExpectedConditions.visibilityOfElementLocated(new MobileBy.ByAccessibilityId("Sports")))
                 .click();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(new MobileBy.ByAccessibilityId("Top Games"))).isDisplayed());
@@ -453,13 +452,12 @@ public class FirstAndroidTest {
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(new MobileBy.ByAccessibilityId("Download The App"))).isDisplayed());
     }
 
-    @Test(groups = {""})
+    @Test(groups = {"StagingSmoke"})
     public void HomeBannersCarouselOverview() {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("viewPager")));
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("viewPager"))).isDisplayed());
@@ -475,8 +473,6 @@ public class FirstAndroidTest {
         driver.context(nativeContext);
         driver.findElement(By.id("fragmentWebDepositCloseButton")).click();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("itemImage"))).isDisplayed());
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("accountMenuNonGridItems")));
         Logout();
     }
 
@@ -485,8 +481,7 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("viewPager")));
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("promotionSectionView"))).isDisplayed());
@@ -495,11 +490,14 @@ public class FirstAndroidTest {
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@href='/promotions/VladiTestPromo/']"))).isDisplayed());
         driver.context(nativeContext);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogoImageView"))).click();
+
+        // taking all the elements from the RecyclerViewList and selecting the needed to click it
         WebElement promoHomeSection = driver.findElement(By.id("promotionSectionView"));
         List<WebElement> promoHomeSectionElements = promoHomeSection.findElements(By.className("android.widget.LinearLayout"));
         List<WebElement> promoHomeTabElements = promoHomeSectionElements.get(1).findElements(By.className("android.widget.LinearLayout"));
         wait.until(ExpectedConditions.visibilityOf(promoHomeTabElements.get(0)));
         promoHomeSectionElements.get(0).click();
+
         driver.context(webContext);
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@href='/promotions/VladiTestPromo/']"))).isDisplayed());
     }
@@ -509,8 +507,7 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 60);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount"))).isDisplayed());
         scrollDown();
@@ -530,19 +527,24 @@ public class FirstAndroidTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btnBack"))).click();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("casinoFirstSectionView"))).isDisplayed());
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("casinoSecondSectionView"))).isDisplayed());
+
+        // taking all the elements from the RecyclerViewList and selecting the needed to click it
         WebElement LiveCasinoHomeSection = driver.findElement(By.id("casinoSecondSectionView"));
         List<WebElement> LiveCasinoHomeViewAllEl = LiveCasinoHomeSection.findElements(By.className("android.widget.LinearLayout"));
         List<WebElement> LiveCasinoHomeViewAllBtn = LiveCasinoHomeViewAllEl.get(0).findElements(By.className("android.widget.LinearLayout"));
         LiveCasinoHomeViewAllBtn.get(0).click();
+
         driver.context(webContext);
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@name='Live Casino Category']"))).isDisplayed());
         driver.context(nativeContext);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogoImageView"))).click();
         scrollDown();
+        // taking all the elements from the RecyclerViewList and selecting the needed to click it
         List<WebElement> LiveCasinoHomeSectionElements = LiveCasinoHomeSection.findElements(By.className("android.widget.LinearLayout"));
         List<WebElement> LiveCasinoHomeTabElements = LiveCasinoHomeSectionElements.get(1).findElements(By.className("android.widget.LinearLayout"));
         wait.until(ExpectedConditions.visibilityOf(LiveCasinoHomeTabElements.get(0)));
         LiveCasinoHomeTabElements.get(0).click();
+
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btnBack"))).isDisplayed());
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btnBack"))).click();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("casinoSecondSectionView"))).isDisplayed());
@@ -553,12 +555,13 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         scrollDown();
         scrollDown();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("footer"))).isDisplayed());
+
+        // taking all the elements from the RecyclerViewList and selecting the needed to verify then and the click
         WebElement OffersSection = driver.findElement(By.id("offersView"));
         List<WebElement> OffersSectionElements = OffersSection.findElements(By.className("android.widget.FrameLayout"));
         List<WebElement> OfferElements = OffersSectionElements.get(1).findElements(By.className("android.view.ViewGroup"));
@@ -567,6 +570,7 @@ public class FirstAndroidTest {
         Assert.assertTrue(OfferImageElement.get(0).isDisplayed());
         Assert.assertTrue(OfferTitleElement.get(0).isDisplayed());
         OffersSectionElements.get(0).click();
+
         Assert.assertFalse(isPresent("offersView"));
     }
 
@@ -575,8 +579,7 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         scrollDown();
         scrollDown();
@@ -584,9 +587,11 @@ public class FirstAndroidTest {
         Assert.assertTrue(driver.findElement(By.id("socialIcons")).isDisplayed());
         scrollDown();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("linksRecyclerView"))).isDisplayed());
+        // taking all the elements from the RecyclerViewList and selecting the needed to click it
         WebElement FooterLinksSection = driver.findElement(By.id("linksRecyclerView"));
         List<WebElement> FooterLinksElements = FooterLinksSection.findElements(By.className("android.widget.TextView"));
         FooterLinksElements.get(5).click();
+
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(new MobileBy.ByAccessibilityId("Connection is secure. Site information"))).isDisplayed());
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(new MobileBy.ByAccessibilityId("Close tab"))).isDisplayed());
         driver.findElement(new MobileBy.ByAccessibilityId("Close tab")).click();
@@ -598,8 +603,7 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         for (int i = 0; i <=4; i++) {
          scrollDown();
@@ -627,8 +631,7 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount"))).isDisplayed());
         driver.findElement(By.id("headerAccount")).click();
@@ -670,13 +673,14 @@ public class FirstAndroidTest {
     public void MyAccountGridItemsOverview() {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
+        killAndRelaunchApp("com.india.guruplay");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount"))).isDisplayed());
         driver.findElement(By.id("headerAccount")).click();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("accountMenuGridItems"))).isDisplayed());
+
+        // taking all the elements from the RecyclerViewList and iterate with them to verify that the elements are displayed
         WebElement accountGridSection = driver.findElement(By.id("accountMenuGridItems"));
         List<WebElement> accountGridElements = accountGridSection.findElements(By.className("android.widget.RelativeLayout"));
         System.out.println(accountGridElements.size());
@@ -686,17 +690,18 @@ public class FirstAndroidTest {
         }
     }
 
-    @Test(groups = {""})
+    @Test(groups = {"StagingSmoke"})
     public void MyAccountNonGridItemsOverview() {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount"))).isDisplayed());
         driver.findElement(By.id("headerAccount")).click();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("accountMenuNonGridItems"))).isDisplayed());
+
+        // taking all the elements from the RecyclerViewList and iterate with them to verify that the elements are displayed
         WebElement accountGridSection = driver.findElement(By.id("accountMenuNonGridItems"));
         List<WebElement> accountGridElements = accountGridSection.findElements(By.className("android.widget.FrameLayout"));
         System.out.println(accountGridElements.size());
@@ -711,18 +716,22 @@ public class FirstAndroidTest {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount"))).isDisplayed());
         driver.findElement(By.id("headerAccount")).click();
+
+        // taking all the elements from the RecyclerViewList and selects the needed one to click it
         WebElement accountGridSection = driver.findElement(By.id("accountMenuGridItems"));
         List<WebElement> accountGridElements = accountGridSection.findElements(By.className("android.widget.RelativeLayout"));
         accountGridElements.get(0).click();
+
         // need ID here
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View/android.view.View[1]"))).isDisplayed());
         driver.findElement(By.id("headerAccount"))
                 .click();
+
+        // taking all the elements from the RecyclerViewList and selects the needed one to click it
         // think of better naming
         WebElement accountGridSection1 = driver.findElement(By.id("accountMenuGridItems"));
         List<WebElement> accountGridElements1 = accountGridSection1.findElements(By.className("android.widget.RelativeLayout"));
@@ -733,6 +742,8 @@ public class FirstAndroidTest {
         driver.context(nativeContext);
         driver.findElement(By.id("headerAccount"))
                 .click();
+
+        // taking all the elements from the RecyclerViewList and selects the needed one to click it
         // think of better naming
         WebElement accountGridSection2 = driver.findElement(By.id("accountMenuGridItems"));
         List<WebElement> accountGridElements2 = accountGridSection2.findElements(By.className("android.widget.RelativeLayout"));
@@ -743,28 +754,32 @@ public class FirstAndroidTest {
     }
 
     @Test(groups = {"StagingSmoke"})
-    public void MultipleTabsPagesNavigation() throws InterruptedException {
+    public void MultipleTabsPagesNavigation() {
         wait = new WebDriverWait(driver, 20);
-        Thread.sleep(3000);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         Login();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount")));
         driver.findElement(new MobileBy.ByAccessibilityId("Offers")).click();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("subNavigation"))).isDisplayed());
+
+        // taking all the elements from the RecyclerViewList and selects them one by one and clicks them, then verifying that they are tapped/selected
         WebElement offersSubNavSection = driver.findElement(By.id("subNavigation"));
         List<WebElement> offersSubNavElements = offersSubNavSection.findElements(By.className("android.view.ViewGroup"));
         for (int i = 3; i >= 0; i--) {
             offersSubNavElements.get(i).click();
             Assert.assertTrue(offersSubNavElements.get(i).isSelected());
         }
+
         driver.findElement(By.id("headerAccount")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("accountMenuGridItems")));
+
+        // taking all the elements from the RecyclerViewList and selects the needed one to click it
         WebElement accountGridSection = driver.findElement(By.id("accountMenuGridItems"));
         List<WebElement> accountGridElements = accountGridSection.findElements(By.className("android.widget.RelativeLayout"));
         accountGridElements.get(1).click();
+
         driver.context(webContext);
         String CurrentBonusesSelected = driver.findElement(By.xpath("//*[@data-uat='bonus-information-tab-item-3']/button[1]")).getAttribute("aria-selected");
         Assert.assertEquals(CurrentBonusesSelected, "true");
@@ -786,51 +801,61 @@ public class FirstAndroidTest {
     }
 
     @Test(groups = {"StagingSmoke"})
-    public void SocialLinksVerification() {
+    public void SocialLinksVerification() throws InterruptedException {
         wait = new WebDriverWait(driver, 20);
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
-        driver.terminateApp("com.india.guruplay");
-        driver.activateApp("com.india.guruplay");
+        killAndRelaunchApp("com.india.guruplay");
         Login();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerAccount"))).isDisplayed());
         scrollDown();
         scrollDown();
+
+        // taking all the elements from the RecyclerViewList and selects the needed one to click it
         WebElement socialIconsSection = driver.findElement(By.id("socialIcons"));
         List<WebElement> socialIconsElements = socialIconsSection.findElements(By.className("android.widget.ImageView"));
         socialIconsElements.get(0).click();
+
         waitForElementToAppear("com.android.chrome:id/toolbar");
+        waitForElementToAppear("com.android.chrome:id/title_bar");
         String FaceBookURL = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.android.chrome:id/url_bar"))).getText();
         Assert.assertEquals(FaceBookURL, "m.facebook.com");
         wait.until(ExpectedConditions.visibilityOfElementLocated(new MobileBy.ByAccessibilityId("Close tab")));
         driver.findElement(new MobileBy.ByAccessibilityId("Close tab")).click();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("socialIcons"))).isDisplayed());
+
+        // taking all the elements from the RecyclerViewList and selects the needed one to click it
         WebElement socialIconsSection1 = driver.findElement(By.id("socialIcons"));
         List<WebElement> socialIconsElements1 = socialIconsSection1.findElements(By.className("android.widget.ImageView"));
         socialIconsElements1.get(1).click();
+
+        waitForElementToAppear("com.android.chrome:id/title_bar");
         String TwitterURL = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.android.chrome:id/url_bar"))).getText();
         Assert.assertEquals(TwitterURL, "mobile.twitter.com");
         driver.findElement(new MobileBy.ByAccessibilityId("Close tab")).click();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("socialIcons"))).isDisplayed());
         scrollUp();
-        driver.findElement(By.id("headerAccount")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("accountMenuGridItems")));
-        WebElement accountGridSection = driver.findElement(By.id("accountMenuNonGridItems"));
-        List<WebElement> accountGridElements = accountGridSection.findElements(By.className("android.widget.FrameLayout"));
-        accountGridElements.get(2).click();
-        Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin"))).isDisplayed());
+        Logout();
         scrollDown();
         scrollDown();
+
+        // taking all the elements from the RecyclerViewList and selects the needed one to click it
         WebElement socialIconsSection2 = driver.findElement(By.id("socialIcons"));
         List<WebElement> socialIconsElements2 = socialIconsSection2.findElements(By.className("android.widget.ImageView"));
         socialIconsElements2.get(2).click();
+
+        waitForElementToAppear("com.android.chrome:id/title_bar");
         String TelegramURL = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.android.chrome:id/url_bar"))).getText();
         Assert.assertEquals(TelegramURL, "t.me");
         driver.findElement(new MobileBy.ByAccessibilityId("Close tab")).click();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("socialIcons"))).isDisplayed());
+
+        // taking all the elements from the RecyclerViewList and selects the needed one to click it
         WebElement socialIconsSection3 = driver.findElement(By.id("socialIcons"));
         List<WebElement> socialIconsElements3 = socialIconsSection3.findElements(By.className("android.widget.ImageView"));
         socialIconsElements3.get(3).click();
+
+        waitForElementToAppear("com.android.chrome:id/title_bar");
         String InstagramURL = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.android.chrome:id/url_bar"))).getText();
         Assert.assertEquals(InstagramURL, "instagram.com");
         driver.findElement(new MobileBy.ByAccessibilityId("Close tab")).click();
