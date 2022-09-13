@@ -2,7 +2,6 @@ package AndroidTests;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
@@ -25,7 +24,7 @@ import java.util.function.Function;
 
 public class FirstAndroidTest {
 
-    AndroidDriver<? extends WebElement> driver;
+    AndroidDriver driver;
     AndroidTouchAction action;
     public WebDriverWait wait;
     public String nativeContext = "NATIVE_APP";
@@ -70,7 +69,7 @@ public class FirstAndroidTest {
         Dimension dimension = driver.manage().window().getSize();
         int scrollStart = (int) (dimension.getWidth() * 0.8);
         int scrollEnd = (int) (dimension.getWidth() * 0.1);
-        AndroidElement element = (AndroidElement) driver.findElement(By.id("viewPager"));
+        WebElement element = driver.findElement(By.id("viewPager"));
         action = new AndroidTouchAction(driver)
                 .press(ElementOption.element(element))
                 .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))
@@ -140,7 +139,7 @@ public class FirstAndroidTest {
                 .click();
     }
 
-    private void Login() {
+    public void Login() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         driver.findElement(By.id("headerLogin"))
                 .click();
@@ -176,14 +175,14 @@ public class FirstAndroidTest {
         caps.setCapability("platformVersion", "10");
         caps.setCapability("deviceName", "Xiaomi Redmi Note 8 Pro");
         caps.setCapability("app", "/Users/ivankirilov/IdeaProjects/TestAutomationTaskIvanKirilov/IvanAutomation/apps/dev_guruplay_1474.apk");
-        driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), caps);
+        driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps);
     }
 
 
     /**APP-877*/
     @Test(groups = {"StagingSmoke"})
     public void LoginWithRememberMeFunctionality() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -199,7 +198,7 @@ public class FirstAndroidTest {
     /**APP-1359*/
     @Test(groups = {"StagingSmoke"})
     public void SuccessfulLogin() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -259,7 +258,7 @@ public class FirstAndroidTest {
     /** APP-867*/
     @Test(groups = {"StagingSmoke"})
     public void UnsuccessfulLogin() throws InterruptedException {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -305,7 +304,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void BalanceUpdateWithDeposit() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -332,7 +331,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void BalanceUpdateWithWithdrawal() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -361,7 +360,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void ChatFunctionality() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -397,7 +396,7 @@ public class FirstAndroidTest {
     // THINK OF MORE SMART WAY FOR THIS TEST, 2 users, with different amount
     @Test(groups = {"StagingSmoke"})
     public void LowFundsBanner() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -429,7 +428,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void NavigationThroughBottomNavigationTabs() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -454,7 +453,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void HomeBannersCarouselOverview() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -469,7 +468,7 @@ public class FirstAndroidTest {
         }
         driver.findElement(By.id("itemImage")).click();
         driver.context(webContext);
-        Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@data-uat='deposit-Amount *-field']"))).isDisplayed());
+        Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@data-uat='deposit-Amount *-field']"))).isDisplayed()); // after tapping any of the banners the screen could be different think of better assert
         driver.context(nativeContext);
         driver.findElement(By.id("fragmentWebDepositCloseButton")).click();
         Assert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("itemImage"))).isDisplayed());
@@ -478,7 +477,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void HomePromoSectionOverview() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -504,7 +503,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void HomeCasinoAndLiveCasinoSectionsOverview() {
-        wait = new WebDriverWait(driver, 60);
+        wait = new WebDriverWait(driver, Duration.ofNanos(60000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -552,7 +551,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void OffersSectionOverview() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -576,7 +575,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void FooterOverview() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -600,7 +599,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void LicencesAndPaymentsOverview() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -628,7 +627,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void MyAccountBalanceSectionOverview() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -671,7 +670,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void MyAccountGridItemsOverview() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         killAndRelaunchApp("com.india.guruplay");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
@@ -692,7 +691,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void MyAccountNonGridItemsOverview() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -713,7 +712,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void MyAccountGridItemsNavigation() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -755,7 +754,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void MultipleTabsPagesNavigation() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");
@@ -802,7 +801,7 @@ public class FirstAndroidTest {
 
     @Test(groups = {"StagingSmoke"})
     public void SocialLinksVerification() throws InterruptedException {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handelAppsUpdatePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         killAndRelaunchApp("com.india.guruplay");

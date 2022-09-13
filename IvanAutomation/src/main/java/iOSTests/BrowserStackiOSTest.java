@@ -104,7 +104,7 @@ public class BrowserStackiOSTest {
 
     @Test
     public void Test() throws InterruptedException {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handleNotificationsPermissionPopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Log in")));
         driver.terminateApp("com.india.guruplay");
@@ -133,7 +133,7 @@ public class BrowserStackiOSTest {
     /** APP-877 */
     @Test
     public void LoginWithRememberMe() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         driver.terminateApp("com.india.guruplay");
         driver.activateApp("com.india.guruplay");
@@ -179,7 +179,7 @@ public class BrowserStackiOSTest {
     /** APP-1359 */
     @Test
     public void SuccessfulLogin() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("headerLogin")));
         driver.terminateApp("com.india.guruplay");
         driver.activateApp("com.india.guruplay");
@@ -235,7 +235,7 @@ public class BrowserStackiOSTest {
     /** APP-867 */
     @Test
     public void UnsuccessfulLogin() {
-        wait = new WebDriverWait(driver, 20);
+        wait = new WebDriverWait(driver, Duration.ofNanos(20000));
         handleNotificationsPermissionPopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Log in")));
         driver.terminateApp("com.india.guruplay");
